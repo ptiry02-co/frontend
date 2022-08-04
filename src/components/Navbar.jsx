@@ -9,8 +9,8 @@ const Navbar = () => {
         <Logo src={logo} alt='Logo' />
       </Link>
       <Menu>
-        <MyLink>Log In</MyLink>
-        <MyLink>Sign Up</MyLink>
+        <MyLink to='/login'>Log In</MyLink>
+        <MyLink to='/signup'>Sign Up</MyLink>
       </Menu>
     </Wrapper>
   )
@@ -36,13 +36,13 @@ const Menu = styled.nav`
   list-style: none;
   display: flex;
   column-gap: 5%;
-  text-decoration: none;
 `
-const MyLink = styled.a`
+const MyLink = styled(Link)`
   width: 60px;
   align-self: center;
+  text-decoration: none;
+  color: black;
   :hover {
-    cursor: pointer;
     text-decoration: underline;
   }
 `
