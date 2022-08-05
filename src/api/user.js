@@ -1,5 +1,7 @@
 import { app } from './axios.config'
 
-export const postSignUp = data => app.post('/auth/signup', data)
+export const createUser = data => app.post('/auth/signup', data)
 
-export const getVerifyUser = () => app.get('/auth/verify')
+export const postUser = data => app.post('/auth/login', data)
+
+export const verifyUser = token => app.get('/auth/verify', { headers: { authorization: `Bearer ${token}` } })

@@ -1,23 +1,56 @@
 import { useState } from 'react'
-import { postSignUp } from '../api/user'
+import { createUser, postUser, verifyUser } from '../api/user'
 
 const useAuth = () => {
-  const [authData, setAuthData] = useState({ isLoading: false, isLoggedIn: false, user: null })
+  const [isLoading, setIsLoading] = useState(false)
 
   const signUp = async user => {
     try {
-      setAuthData({ ...authData, isLoading: true })
+      setIsLoading(true)
 
-      const res = await postSignUp(user)
+      const { data } = await createUser(user)
 
-      localStorage.setItem('authToken', res.authToken)
+      localStorage.setItem('authToken', data.authToken)
 
-      setAuthData({ isLoading: false, isLoggedIn: true, user: res.payload })
+      setIsLoading(false)
+      return data.user
     } catch (error) {
       console.log('Error in sign up: ', error)
     }
   }
 
-  return { authData, signUp }
+  const logIn = async user => {
+    try {
+      setIsLoading(true)
+
+      const { data } = await postUser(user)
+
+      localStorage.setItem('authToken', data.authToken)
+
+      setIsLoading(false)
+      return data.user
+    } catch (error) {
+      console.log('Error in Log in: ', error)
+    }
+  }
+
+  const checkUser = async () => {
+    const storedToken = localStorage.getItem('authToken')
+
+    if (!storedToken) return
+
+    try {
+      setIsLoading(true)
+
+      const { data } = await verifyUser(storedToken)
+
+      setIsLoading(false)
+      return data
+    } catch (error) {
+      console.log('Error getting logged user: ', error)
+    }
+  }
+
+  return { isLoading, signUp, logIn, checkUser }
 }
 export default useAuth

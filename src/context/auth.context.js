@@ -1,28 +1,11 @@
-import { createContext, useEffect, useState } from 'react'
-import { getVerifyUser } from '../api/user'
+import { createContext, useState } from 'react'
 
-export const AuthContext = createContext()
+export const UserContext = createContext()
 
-const AuthProvider = ({ children }) => {
+const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null)
 
-  const checkUser = async () => {
-    const userToken = localStorage.getItem('authToken')
-
-    if (!userToken) return
-
-    try {
-      const res = await getVerifyUser()
-
-      // need endpoint to fetch user by id
-    } catch (error) {
-      console.log('Error verifying user: ', error)
-    }
-  }
-
-  useEffect(() => {}, [])
-
-  return <AuthContext.Provider value={{ user, setUser }}>{children}</AuthContext.Provider>
+  return <UserContext.Provider value={{ user, setUser }}>{children}</UserContext.Provider>
 }
 
-export default AuthProvider
+export default UserProvider

@@ -1,13 +1,19 @@
-import { useRef } from 'react'
+import { useContext, useRef } from 'react'
 import styled from 'styled-components'
 import Box from '../components/Box'
+import { UserContext } from '../context/auth.context'
+import useAuth from '../hooks/useAuth'
 
 const SignUp = () => {
+  const { signUp } = useAuth()
+  const { setUser } = useContext(UserContext)
   const email = useRef(),
     pass = useRef()
 
-  const handleClick = () => {
+  const handleClick = async () => {
     const data = { email: email.current.value, password: pass.current.value }
+    const newUser = await signUp(data)
+    setUser(newUser)
   }
   return (
     <Box>
@@ -16,7 +22,7 @@ const SignUp = () => {
       <Input ref={email} type='email' />
       <Label>Password</Label>
       <Input ref={pass} type='password' />
-      <Button>Sign up</Button>
+      <Button onClick={handleClick}>Sign up</Button>
     </Box>
   )
 }
