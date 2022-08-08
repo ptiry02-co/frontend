@@ -10,10 +10,9 @@ const Container = styled.div`
   position: ${({ isModal }) => (isModal ? 'absolute' : 'relative')};
   align-self: center;
   margin-top: ${({ isModal }) => (isModal ? '10%' : 0)};
-  padding: 30px 3%;
+  padding: 30px 7%;
   border: 1px solid black;
   border-radius: 30px;
-  width: 25%;
   min-width: 200px;
   display: flex;
   flex-direction: column;
