@@ -28,7 +28,7 @@ const AuthForm = ({ isNew = false }) => {
   return (
     <>
       <Backdrop />
-      <Box>
+      <Box isModal>
         <Title>{isNew ? 'Sign Up' : 'Log In'}</Title>
         <label>Email</label>
         <TextInput ref={email} type='email' />
