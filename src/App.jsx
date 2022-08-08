@@ -7,6 +7,7 @@ import { useContext } from 'react'
 import { AuthModalContext } from './context/modal.context'
 import Navbar from './components/Navbar'
 import { UserContext } from './context/auth.context'
+import Profile from './views/profile'
 
 function App() {
   const navigate = useNavigate()
@@ -30,6 +31,7 @@ function App() {
       <Navbar user={user} handleModal={handleModal} logOut={logOut} />
       <Routes>
         <Route path='/' element={<HomePage />} />
+        <Route path='/profile' element={<Profile />} />
       </Routes>
     </>
   )
