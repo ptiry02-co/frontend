@@ -4,7 +4,7 @@ import Backdrop from './helpers/Backdrop'
 import Box from './helpers/Box'
 import TextInput from './helpers/TextInput'
 
-const CreatePlan = ({ onClose, info, onCreate }) => {
+const PlanForm = ({ onClose, info, onCreate }) => {
   const [formData, setFormData] = useState({
     type: '',
     day: '',
@@ -20,14 +20,16 @@ const CreatePlan = ({ onClose, info, onCreate }) => {
         <TextInput type='text' ref={name} />
         <label>Day</label>
         <Options value={formData.day} onChange={e => setFormData({ ...formData, day: e.target.value })}>
+          <option value='default'>-- Select a day --</option>
           {info.days?.map((day, i) => (
             <option key={i} value={day}>
               {day}
             </option>
           ))}
         </Options>
-        <label>Body part</label>
+        <label>Body section</label>
         <Options value={formData.type} onChange={e => setFormData({ ...formData, type: e.target.value })}>
+          <option value='default'>-- Select a body section --</option>
           {info.planTypes?.map((type, i) => (
             <option key={i} value={type}>
               {type}
@@ -44,15 +46,15 @@ const CreatePlan = ({ onClose, info, onCreate }) => {
   )
 }
 
-export default CreatePlan
+export default PlanForm
 
 const Options = styled.select`
   padding: 0.5rem 0.8rem;
-  width: 70%;
   font-size: 1rem;
   border-radius: 10px;
   border: 1px solid black;
   margin-bottom: 15px;
+  text-align: center;
 `
 const Description = styled.textarea`
   resize: none;

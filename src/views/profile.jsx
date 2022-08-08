@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 import styled from 'styled-components'
-import CreatePlan from '../components/CreatePlan'
+import PlanForm from '../components/PlanForm'
 import Box from '../components/helpers/Box'
 import usePlans from '../hooks/usePlans'
 
@@ -31,7 +31,7 @@ const Profile = () => {
       <Button onClick={() => setShowModal(true)}>Add new Plan</Button>
       {showModal &&
         createPortal(
-          <CreatePlan onClose={() => setShowModal(false)} info={plansData} onCreate={handleNewPlan} />,
+          <PlanForm onClose={() => setShowModal(false)} info={plansData} onCreate={handleNewPlan} />,
           document.getElementById('modals')
         )}
       <PlansContainer>
@@ -47,6 +47,7 @@ const Profile = () => {
                 <li key={ex._id}>{ex.name}</li>
               ))}
             </ExerList>
+            <Button>Edit Plan</Button>
           </Box>
         ))}
       </PlansContainer>
@@ -61,19 +62,24 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  h1 {
+    margin-bottom: 30px;
+  }
 `
 const Button = styled.button`
   padding: 3px 5px;
   border-radius: 7px;
-  margin: 30px 0;
 `
 const PlansContainer = styled.div`
   display: grid;
   width: 100%;
-  padding: 0 5%;
+  padding: 0 5% 100px;
+  margin-top: 30px;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-rows: repeat(auto-fit, minmax(200px, 1fr));
   justify-items: center;
   align-items: stretch;
+  row-gap: 30px;
 `
 const Info = styled.div`
   display: flex;
@@ -87,5 +93,6 @@ const ExerList = styled.div`
     border: 1px solid black;
     border-radius: 99px;
     background-color: #d9cdbf;
+    margin-bottom: 15px;
   }
 `
