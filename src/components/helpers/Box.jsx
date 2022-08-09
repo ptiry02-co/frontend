@@ -9,8 +9,10 @@ export default Box
 const Container = styled.div`
   position: ${({ isModal }) => (isModal ? 'absolute' : 'relative')};
   align-self: center;
+  text-align: center;
   margin-top: ${({ isModal }) => (isModal ? '10%' : 0)};
   padding: 30px 7%;
+  max-width: ${({ isModal }) => (isModal ? 'auto' : '300px')};
   border: 1px solid black;
   border-radius: 30px;
   min-width: 200px;
