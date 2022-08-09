@@ -1,18 +1,19 @@
-import { useCallback, useEffect, useState } from 'react'
-import { getPlans, postPlan, putPlan, remove } from '../api/plans'
+import { useEffect, useState } from 'react'
+import { getPlan, getPlans, postPlan, putPlan, remove } from '../api/plans'
+
+const token = localStorage.getItem('authToken')
 
 const usePlans = () => {
   const [plansData, setPlansData] = useState({})
-  const token = localStorage.getItem('authToken')
 
-  const fetchPlans = useCallback(async () => {
+  const fetchPlans = async () => {
     try {
       const res = await getPlans({ token })
       setPlansData(res.data)
     } catch (error) {
       console.log('Error fetching Plans: ', error)
     }
-  }, [token])
+  }
 
   const addPlan = async data => {
     try {
@@ -38,10 +39,19 @@ const usePlans = () => {
     }
   }
 
+  const fetchPlan = async data => {
+    try {
+      const res = await getPlan({ ...data, token })
+      return res.data
+    } catch (error) {
+      console.log('Error fetching plan details: ', error)
+    }
+  }
+
   useEffect(() => {
     fetchPlans()
-  }, [fetchPlans])
+  }, [])
 
-  return { plansData, addPlan, fetchPlans, editPlan, deletePlan }
+  return { plansData, addPlan, fetchPlans, editPlan, deletePlan, fetchPlan }
 }
 export default usePlans

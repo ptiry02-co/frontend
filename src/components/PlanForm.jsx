@@ -16,10 +16,10 @@ const PlanForm = ({ onClose, info, onSubmit, editData = undefined, onDelete }) =
         name: name.current.value,
         type: typeSelect.current.value,
         description: descr.current.value,
-        day: daySelect.current.value,
+        day: daySelect.current.value
       },
       isNew: editData ? false : true,
-      planId: editData?.planId,
+      planId: editData?.planId
     }
     onSubmit(data)
   }

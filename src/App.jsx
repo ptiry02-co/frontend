@@ -6,15 +6,12 @@ import { ModalContext } from './context/modal.context'
 import Navbar from './components/Navbar'
 import { UserContext } from './context/auth.context'
 import Profile from './views/profile'
+import PlanDetails from './components/PlanDetails'
 
 function App() {
   const navigate = useNavigate()
   const { user, setUser } = useContext(UserContext),
     { modal, setModal } = useContext(ModalContext)
-
-  /* const handleModal = isNew => {
-    setModal({ isNew, isVisible: true })
-  } */
 
   const logOut = () => {
     localStorage.removeItem('authToken')
@@ -30,6 +27,7 @@ function App() {
       <Routes>
         <Route path='/' element={<HomePage />} />
         <Route path='/profile' element={<Profile />} />
+        <Route path='/plans/:planId' element={<PlanDetails />} />
       </Routes>
     </>
   )

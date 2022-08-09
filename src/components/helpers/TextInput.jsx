@@ -5,6 +5,9 @@ const TextInput = forwardRef(({ type = 'text', value = undefined }, ref) => (
   <Input ref={ref} type={type} value={value} onChange={e => ({ ...ref.current, value: e.target.value })} />
 ))
 
+// 👇 This is to display the name of the component in the React dev tools.
+TextInput.displayName = 'TextInput'
+
 export default TextInput
 
 const Input = styled.input`

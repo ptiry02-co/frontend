@@ -5,7 +5,7 @@ export const ModalContext = createContext()
 const ModalProvider = ({ children }) => {
   const [modal, setModal] = useState({
     isVisible: false,
-    component: null,
+    component: null
   })
 
   useEffect(() => {

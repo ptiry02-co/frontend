@@ -38,7 +38,7 @@ const AuthForm = ({ isNew = false, onClose }) => {
           </p>
         ) : (
           <p>
-            Don't have an account? Sign up <Link to='/signup'>here</Link>
+            Don&apos;t have an account? Sign up <Link to='/signup'>here</Link>
           </p>
         )}
         <Button onClick={handleAuth}>{isNew ? 'Sign Up' : 'Log In'}</Button>

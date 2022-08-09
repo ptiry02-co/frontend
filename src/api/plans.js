@@ -9,3 +9,5 @@ export const putPlan = data =>
 
 export const remove = data =>
   app.delete(`/plans/${data.planId}`, { headers: { authorization: `Bearer ${data.token}` } })
+
+export const getPlan = data => app.get(`/plans/${data.planId}`, { headers: { authorization: `Bearer ${data.token}` } })

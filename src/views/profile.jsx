@@ -1,10 +1,11 @@
-import { useContext } from 'react'
+import React, { useContext } from 'react'
 import { createPortal } from 'react-dom'
 import styled from 'styled-components'
 import PlanForm from '../components/PlanForm'
 import Box from '../components/helpers/Box'
 import usePlans from '../hooks/usePlans'
 import { ModalContext } from '../context/modal.context'
+import { Link } from 'react-router-dom'
 
 const Profile = () => {
   const { modal, setModal } = useContext(ModalContext)
@@ -42,7 +43,7 @@ const Profile = () => {
               component: createPortal(
                 <PlanForm onClose={setModal} info={plansData.enums} onSubmit={handleSubmit} />,
                 document.getElementById('modals')
-              ),
+              )
             })
           }
         >
@@ -51,7 +52,9 @@ const Profile = () => {
         <PlansContainer>
           {plansData.userPlans?.map(plan => (
             <Box key={plan._id}>
-              <h2>{plan.name?.toUpperCase()}</h2>
+              <DetailsLink to={`/plans/${plan._id}`}>
+                <h2>{plan.name?.toUpperCase()}</h2>
+              </DetailsLink>
               <Info>
                 <span>Type: {plan.type}</span>
                 <span>Day: {plan.day}</span>
@@ -73,11 +76,11 @@ const Profile = () => {
                         onDelete={handleDelete}
                         editData={{
                           planId: plan._id,
-                          plan: { name: plan.name, type: plan.type, day: plan.day, description: plan.description },
+                          plan: { name: plan.name, type: plan.type, day: plan.day, description: plan.description }
                         }}
                       />,
                       document.getElementById('modals')
-                    ),
+                    )
                   })
                 }}
               >
@@ -101,6 +104,12 @@ const Wrapper = styled.div`
   h1 {
     text-align: center;
     margin: 0 5% 30px;
+  }
+`
+const DetailsLink = styled(Link)`
+  color: black;
+  :active {
+    color: #6e2504;
   }
 `
 const Button = styled.button`

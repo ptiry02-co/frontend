@@ -23,7 +23,7 @@ const Navbar = ({ user, handleModal, logOut }) => {
               onClick={() =>
                 handleModal({
                   isVisible: true,
-                  component: createPortal(<AuthForm onClose={handleModal} />, document.getElementById('modals')),
+                  component: createPortal(<AuthForm onClose={handleModal} />, document.getElementById('modals'))
                 })
               }
             >
@@ -34,7 +34,7 @@ const Navbar = ({ user, handleModal, logOut }) => {
               onClick={() =>
                 handleModal({
                   isVisible: true,
-                  component: createPortal(<AuthForm isNew onClose={handleModal} />, document.getElementById('modals')),
+                  component: createPortal(<AuthForm isNew onClose={handleModal} />, document.getElementById('modals'))
                 })
               }
             >
