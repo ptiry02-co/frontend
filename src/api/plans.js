@@ -1,5 +1,11 @@
 import { app } from './axios.config'
 
-export const getPlans = token => app.get('/plans', { headers: { authorization: `Bearer ${token}` } })
+export const getPlans = data => app.get('/plans', { headers: { authorization: `Bearer ${data.token}` } })
 
-export const newPlan = (data, token) => app.post('/plans', data, { headers: { authorization: `Bearer ${token}` } })
+export const postPlan = data => app.post('/plans', data.plan, { headers: { authorization: `Bearer ${data.token}` } })
+
+export const putPlan = data =>
+  app.put(`/plans/${data.planId}`, data.plan, { headers: { authorization: `Bearer ${data.token}` } })
+
+export const remove = data =>
+  app.delete(`/plans/${data.planId}`, { headers: { authorization: `Bearer ${data.token}` } })

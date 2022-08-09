@@ -8,15 +8,25 @@ import { ModalContext } from '../context/modal.context'
 
 const Profile = () => {
   const { modal, setModal } = useContext(ModalContext)
-  const { plansData, addPlan, fetchPlans } = usePlans()
+  const { plansData, fetchPlans, addPlan, editPlan, deletePlan } = usePlans()
 
   const handleSubmit = async data => {
     try {
-      data.isNew ? await addPlan(data.info) : await addPlan(data.info)
+      data.isNew ? await addPlan(data) : await editPlan(data)
       setModal({ isVisible: false, component: null })
       await fetchPlans()
     } catch (error) {
-      console.log('Error creating new plan: ', error)
+      console.log('Something went wrong... ', error)
+    }
+  }
+
+  const handleDelete = async data => {
+    try {
+      await deletePlan(data)
+      setModal({ isVisible: false, component: null })
+      await fetchPlans()
+    } catch (error) {
+      console.log('Something went wrong... ', error)
     }
   }
 
@@ -60,9 +70,10 @@ const Profile = () => {
                         onClose={setModal}
                         info={plansData.enums}
                         onSubmit={handleSubmit}
+                        onDelete={handleDelete}
                         editData={{
                           planId: plan._id,
-                          info: { name: plan.name, type: plan.type, day: plan.day, description: plan.description },
+                          plan: { name: plan.name, type: plan.type, day: plan.day, description: plan.description },
                         }}
                       />,
                       document.getElementById('modals')

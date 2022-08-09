@@ -7,12 +7,12 @@ const Box = ({ children, isModal = false }) => {
 export default Box
 
 const Container = styled.div`
-  position: ${({ isModal }) => (isModal ? 'absolute' : 'relative')};
+  position: ${({ isModal }) => (isModal ? 'fixed' : 'relative')};
   align-self: center;
   text-align: center;
-  margin-top: ${({ isModal }) => (isModal ? '10%' : 0)};
+  top: ${({ isModal }) => (isModal ? '10%' : 'auto')};
   padding: 30px 7%;
-  max-width: ${({ isModal }) => (isModal ? 'auto' : '300px')};
+  max-width: ${({ isModal }) => (isModal ? '40%' : '100%')};
   border: 1px solid black;
   border-radius: 30px;
   min-width: 200px;

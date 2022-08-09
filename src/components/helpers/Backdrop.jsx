@@ -9,6 +9,6 @@ export default Backdrop
 const Background = styled.div`
   position: relative;
   width: 100vw;
-  height: 200vh;
+  height: 100vh;
   background-color: rgba(0, 0, 0, 0.4);
 `
