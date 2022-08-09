@@ -6,12 +6,10 @@ import useAuth from '../hooks/useAuth'
 import TextInput from './helpers/TextInput'
 import { Link } from 'react-router-dom'
 import Backdrop from './helpers/Backdrop'
-import { AuthModalContext } from '../context/modal.context'
 
-const AuthForm = ({ isNew = false }) => {
+const AuthForm = ({ isNew = false, onClose }) => {
   const { authUser } = useAuth(isNew)
-  const { setUser } = useContext(UserContext),
-    { authModal, setAuthModal } = useContext(AuthModalContext)
+  const { setUser } = useContext(UserContext)
   const email = useRef(),
     pass = useRef()
 
@@ -20,14 +18,14 @@ const AuthForm = ({ isNew = false }) => {
     try {
       const user = await authUser(data)
       setUser(user)
-      setAuthModal({ ...authModal, isVisible: false })
+      onClose({ isVisible: false, component: null })
     } catch (error) {
       console.log('Something went wrong...', error)
     }
   }
   return (
     <>
-      <Backdrop onClose={() => setAuthModal({ ...authModal, isVisible: false })} />
+      <Backdrop onClose={onClose} />
       <Box isModal>
         <Title>{isNew ? 'Sign Up' : 'Log In'}</Title>
         <label>Email</label>

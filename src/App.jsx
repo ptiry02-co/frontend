@@ -4,7 +4,7 @@ import HomePage from './views/home'
 import GlobalStyles from './styles/globalStyles'
 import AuthForm from './components/AuthForm'
 import { useContext } from 'react'
-import { AuthModalContext } from './context/modal.context'
+import { ModalContext } from './context/modal.context'
 import Navbar from './components/Navbar'
 import { UserContext } from './context/auth.context'
 import Profile from './views/profile'
@@ -12,11 +12,11 @@ import Profile from './views/profile'
 function App() {
   const navigate = useNavigate()
   const { user, setUser } = useContext(UserContext),
-    { authModal, setAuthModal } = useContext(AuthModalContext)
+    { modal, setModal } = useContext(ModalContext)
 
-  const handleModal = isNew => {
-    setAuthModal({ isNew, isVisible: true })
-  }
+  /* const handleModal = isNew => {
+    setModal({ isNew, isVisible: true })
+  } */
 
   const logOut = () => {
     localStorage.removeItem('authToken')
@@ -27,8 +27,8 @@ function App() {
   return (
     <>
       <GlobalStyles />
-      {authModal.isVisible && createPortal(<AuthForm isNew={authModal.isNew} />, document.getElementById('modals'))}
-      <Navbar user={user} handleModal={handleModal} logOut={logOut} />
+      {modal.isVisible && modal.component}
+      <Navbar user={user} handleModal={setModal} logOut={logOut} />
       <Routes>
         <Route path='/' element={<HomePage />} />
         <Route path='/profile' element={<Profile />} />

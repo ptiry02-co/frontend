@@ -1,20 +1,19 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import styled from 'styled-components'
 import PlanForm from '../components/PlanForm'
 import Box from '../components/helpers/Box'
 import usePlans from '../hooks/usePlans'
+import { ModalContext } from '../context/modal.context'
 
 const Profile = () => {
-  const [showModal, setShowModal] = useState(false)
+  const { modal, setModal } = useContext(ModalContext)
   const { plansData, addPlan, fetchPlans } = usePlans()
 
-  const handleNewPlan = async data => {
-    console.log('New plan info: ', data)
+  const handleSubmit = async data => {
     try {
-      await addPlan(data)
-      console.log('New Plan created!')
-      setShowModal(false)
+      data.isNew ? await addPlan(data.info) : await addPlan(data.info)
+      setModal({ isVisible: false, component: null })
       await fetchPlans()
     } catch (error) {
       console.log('Error creating new plan: ', error)
@@ -26,32 +25,59 @@ const Profile = () => {
   }, [])
 
   return (
-    <Wrapper>
-      <h1>My Workout Plans</h1>
-      <Button onClick={() => setShowModal(true)}>Add new Plan</Button>
-      {showModal &&
-        createPortal(
-          <PlanForm onClose={() => setShowModal(false)} info={plansData} onCreate={handleNewPlan} />,
-          document.getElementById('modals')
-        )}
-      <PlansContainer>
-        {plansData.userPlans?.map(plan => (
-          <Box key={plan._id}>
-            <h2>{plan.name?.toUpperCase()}</h2>
-            <Info>
-              <span>Type: {plan.type}</span>
-              <span>Day: {plan.day}</span>
-            </Info>
-            <ExerList>
-              {plan.exercises.map(ex => (
-                <li key={ex._id}>{ex.name}</li>
-              ))}
-            </ExerList>
-            <Button>Edit Plan</Button>
-          </Box>
-        ))}
-      </PlansContainer>
-    </Wrapper>
+    <>
+      {modal.component}
+      <Wrapper>
+        <h1>My Workout Plans</h1>
+        <Button
+          onClick={() =>
+            setModal({
+              isVisible: true,
+              component: createPortal(
+                <PlanForm onClose={setModal} info={plansData.enums} onSubmit={handleSubmit} />,
+                document.getElementById('modals')
+              ),
+            })
+          }
+        >
+          Add new Plan
+        </Button>
+        <PlansContainer>
+          {plansData.userPlans?.map(plan => (
+            <Box key={plan._id}>
+              <h2>{plan.name?.toUpperCase()}</h2>
+              <Info>
+                <span>Type: {plan.type}</span>
+                <span>Day: {plan.day}</span>
+              </Info>
+              <ExerList>
+                {plan.exercises.map(ex => (
+                  <li key={ex._id}>{ex.name}</li>
+                ))}
+              </ExerList>
+              <Button
+                onClick={() => {
+                  setModal({
+                    isVisible: true,
+                    component: createPortal(
+                      <PlanForm
+                        onClose={setModal}
+                        info={plansData.enums}
+                        onSubmit={handleSubmit}
+                        editData={{ name: plan.name, type: plan.type, day: plan.day, description: plan.description }}
+                      />,
+                      document.getElementById('modals')
+                    ),
+                  })
+                }}
+              >
+                Edit Plan
+              </Button>
+            </Box>
+          ))}
+        </PlansContainer>
+      </Wrapper>
+    </>
   )
 }
 

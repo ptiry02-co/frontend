@@ -1,25 +1,41 @@
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import styled from 'styled-components'
 import Backdrop from './helpers/Backdrop'
 import Box from './helpers/Box'
 import TextInput from './helpers/TextInput'
 
-const PlanForm = ({ onClose, info, onCreate }) => {
-  const [formData, setFormData] = useState({
-    type: '',
-    day: '',
-  })
+const PlanForm = ({ onClose, info, onSubmit, editData = undefined }) => {
   const name = useRef(),
-    descr = useRef()
+    descr = useRef(),
+    daySelect = useRef(),
+    typeSelect = useRef()
+
+  const handleInfo = () => {
+    const data = {
+      info: {
+        name: name.current.value,
+        type: typeSelect.current.value,
+        description: descr.current.value,
+        day: daySelect.current.value,
+      },
+      isNew: editData ? false : true,
+    }
+    onSubmit(data)
+  }
+
   return (
     <>
       <Backdrop onClose={onClose} />
       <Box isModal>
         <h2>Create new plan</h2>
         <label>Name</label>
-        <TextInput type='text' ref={name} />
+        <TextInput ref={name} value={editData?.name || ''} />
         <label>Day</label>
-        <Options value={formData.day} onChange={e => setFormData({ ...formData, day: e.target.value })}>
+        <Options
+          ref={daySelect}
+          value={editData?.day || daySelect.current?.value}
+          onChange={e => ({ ...daySelect.current, value: e.target.value })}
+        >
           <option value='default'>-- Select a day --</option>
           {info.days?.map((day, i) => (
             <option key={i} value={day}>
@@ -28,7 +44,11 @@ const PlanForm = ({ onClose, info, onCreate }) => {
           ))}
         </Options>
         <label>Body section</label>
-        <Options value={formData.type} onChange={e => setFormData({ ...formData, type: e.target.value })}>
+        <Options
+          ref={typeSelect}
+          value={editData?.type || typeSelect.current?.value}
+          onChange={e => ({ ...typeSelect.current, value: e.target.value })}
+        >
           <option value='default'>-- Select a body section --</option>
           {info.planTypes?.map((type, i) => (
             <option key={i} value={type}>
@@ -37,10 +57,8 @@ const PlanForm = ({ onClose, info, onCreate }) => {
           ))}
         </Options>
         <label>Description</label>
-        <Description ref={descr} cols='20' rows='3'></Description>
-        <Button onClick={() => onCreate({ ...formData, name: name.current.value, description: descr.current.value })}>
-          Create Plan
-        </Button>
+        <Description ref={descr} cols='20' rows='3' defaultValue={editData?.description || ''}></Description>
+        <Button onClick={handleInfo}>{editData ? 'Edit Plan' : 'Create Plan'}</Button>
       </Box>
     </>
   )
