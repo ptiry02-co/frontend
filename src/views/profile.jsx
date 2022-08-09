@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
 import { createPortal } from 'react-dom'
 import styled from 'styled-components'
 import PlanForm from '../components/PlanForm'
@@ -19,10 +19,6 @@ const Profile = () => {
       console.log('Error creating new plan: ', error)
     }
   }
-
-  useEffect(() => {
-    fetchPlans()
-  }, [])
 
   return (
     <>
@@ -64,7 +60,10 @@ const Profile = () => {
                         onClose={setModal}
                         info={plansData.enums}
                         onSubmit={handleSubmit}
-                        editData={{ name: plan.name, type: plan.type, day: plan.day, description: plan.description }}
+                        editData={{
+                          planId: plan._id,
+                          info: { name: plan.name, type: plan.type, day: plan.day, description: plan.description },
+                        }}
                       />,
                       document.getElementById('modals')
                     ),

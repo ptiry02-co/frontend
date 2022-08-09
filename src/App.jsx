@@ -1,8 +1,6 @@
-import { createPortal } from 'react-dom'
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import HomePage from './views/home'
 import GlobalStyles from './styles/globalStyles'
-import AuthForm from './components/AuthForm'
 import { useContext } from 'react'
 import { ModalContext } from './context/modal.context'
 import Navbar from './components/Navbar'

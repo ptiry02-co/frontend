@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { getPlans, newPlan } from '../api/plans'
 
 const usePlans = () => {
   const [plansData, setPlansData] = useState({})
+
   const fetchPlans = async () => {
     const token = localStorage.getItem('authToken')
     try {
@@ -15,12 +16,16 @@ const usePlans = () => {
   const addPlan = async data => {
     const token = localStorage.getItem('authToken')
     try {
-      const res = await newPlan(data, token)
-      setPlansData(res.data)
+      await newPlan(data, token)
     } catch (error) {
       console.log('Error creating plan: ', error)
     }
   }
+
+  useEffect(() => {
+    fetchPlans()
+  }, [])
+
   return { plansData, addPlan, fetchPlans }
 }
 export default usePlans

@@ -19,6 +19,7 @@ const PlanForm = ({ onClose, info, onSubmit, editData = undefined }) => {
         day: daySelect.current.value,
       },
       isNew: editData ? false : true,
+      planId: editData?.planId,
     }
     onSubmit(data)
   }
