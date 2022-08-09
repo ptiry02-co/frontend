@@ -29,7 +29,7 @@ const PlanForm = ({ onClose, info, onSubmit, editData = undefined }) => {
       <Box isModal>
         <h2>Create new plan</h2>
         <label>Name</label>
-        <TextInput ref={name} value={editData?.name || ''} />
+        <TextInput ref={name} value={editData?.name || name.current?.value} />
         <label>Day</label>
         <Options
           ref={daySelect}
