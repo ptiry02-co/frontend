@@ -1,8 +1,11 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { IoMdFitness } from 'react-icons/io/index'
 import { IoExitOutline } from 'react-icons/io5/index'
+import { TbMinusVertical } from 'react-icons/tb/index'
 import styled from 'styled-components'
 import logo from '../assets/logo.png'
+import { createPortal } from 'react-dom'
+import AuthForm from './AuthForm'
 
 const Navbar = ({ user, handleModal, logOut }) => {
   const navigate = useNavigate()
@@ -16,19 +19,36 @@ const Navbar = ({ user, handleModal, logOut }) => {
           <></>
         ) : user === null ? (
           <>
-            <MyLink onClick={() => handleModal(false)}>Log in</MyLink> |{' '}
-            <MyLink onClick={() => handleModal(true)}>Sign up</MyLink>
+            <MyLink
+              onClick={() =>
+                handleModal({
+                  isVisible: true,
+                  component: createPortal(<AuthForm onClose={handleModal} />, document.getElementById('modals'))
+                })
+              }
+            >
+              Log in
+            </MyLink>
+            <Separator size={30} />
+            <MyLink
+              onClick={() =>
+                handleModal({
+                  isVisible: true,
+                  component: createPortal(<AuthForm isNew onClose={handleModal} />, document.getElementById('modals'))
+                })
+              }
+            >
+              Sign up
+            </MyLink>
           </>
         ) : (
           <>
             <MyLink onClick={() => navigate('/profile')}>
-              {' '}
               <IoMdFitness />
               My Profile
-            </MyLink>{' '}
-            |{' '}
+            </MyLink>
+            <Separator size={30} />
             <MyLink onClick={logOut}>
-              {' '}
               <IoExitOutline /> Log out
             </MyLink>
           </>
@@ -59,6 +79,10 @@ const Menu = styled.nav`
   display: flex;
   align-items: center;
   column-gap: 5px;
+  @media (max-width: 365px) {
+    flex-direction: column;
+    row-gap: 15px;
+  }
 `
 const MyLink = styled.p`
   box-sizing: content-box;
@@ -72,5 +96,10 @@ const MyLink = styled.p`
   }
   :active {
     color: lightblue;
+  }
+`
+const Separator = styled(TbMinusVertical)`
+  @media (max-width: 365px) {
+    display: none;
   }
 `

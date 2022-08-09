@@ -1,4 +1,3 @@
-import { useCallback } from 'react'
 import { createUser, postUser, verifyUser } from '../api/user'
 
 const useAuth = isNew => {
@@ -13,7 +12,7 @@ const useAuth = isNew => {
     }
   }
 
-  const checkUser = useCallback(async () => {
+  const checkUser = async () => {
     const storedToken = localStorage.getItem('authToken')
 
     if (!storedToken) return
@@ -25,7 +24,7 @@ const useAuth = isNew => {
     } catch (error) {
       console.log('Error getting logged user: ', error)
     }
-  }, [])
+  }
 
   return { authUser, checkUser }
 }

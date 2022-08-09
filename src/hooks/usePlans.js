@@ -1,26 +1,57 @@
-import { useState } from 'react'
-import { getPlans, newPlan } from '../api/plans'
+import { useEffect, useState } from 'react'
+import { getPlan, getPlans, postPlan, putPlan, remove } from '../api/plans'
+
+const token = localStorage.getItem('authToken')
 
 const usePlans = () => {
   const [plansData, setPlansData] = useState({})
+
   const fetchPlans = async () => {
-    const token = localStorage.getItem('authToken')
     try {
-      const res = await getPlans(token)
+      const res = await getPlans({ token })
       setPlansData(res.data)
     } catch (error) {
       console.log('Error fetching Plans: ', error)
     }
   }
+
   const addPlan = async data => {
-    const token = localStorage.getItem('authToken')
     try {
-      const res = await newPlan(data, token)
-      setPlansData(res.data)
+      await postPlan({ ...data, token })
     } catch (error) {
       console.log('Error creating plan: ', error)
     }
   }
-  return { plansData, addPlan, fetchPlans }
+
+  const editPlan = async data => {
+    try {
+      await putPlan({ ...data, token })
+    } catch (error) {
+      console.log('Error editing plan: ', error)
+    }
+  }
+
+  const deletePlan = async data => {
+    try {
+      await remove({ ...data, token })
+    } catch (error) {
+      console.log('Error deleting plan: ', error)
+    }
+  }
+
+  const fetchPlan = async data => {
+    try {
+      const res = await getPlan({ ...data, token })
+      return res.data
+    } catch (error) {
+      console.log('Error fetching plan details: ', error)
+    }
+  }
+
+  useEffect(() => {
+    fetchPlans()
+  }, [])
+
+  return { plansData, addPlan, fetchPlans, editPlan, deletePlan, fetchPlan }
 }
 export default usePlans

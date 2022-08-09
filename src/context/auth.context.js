@@ -12,7 +12,6 @@ const UserProvider = ({ children }) => {
       if (!user) return setUser(null)
       setUser(user)
     })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return <UserContext.Provider value={{ user, setUser }}>{children}</UserContext.Provider>

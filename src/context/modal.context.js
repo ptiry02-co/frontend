@@ -1,22 +1,22 @@
 import { createContext, useEffect, useState } from 'react'
 
-export const AuthModalContext = createContext()
+export const ModalContext = createContext()
 
-const AuthModalProvider = ({ children }) => {
-  const [authModal, setAuthModal] = useState({
+const ModalProvider = ({ children }) => {
+  const [modal, setModal] = useState({
     isVisible: false,
-    isNew: false,
+    component: null
   })
 
   useEffect(() => {
-    if (authModal.isVisible) {
+    if (modal.isVisible) {
       document.getElementsByTagName('body')[0].style.overflow = 'hidden'
     } else {
       document.getElementsByTagName('body')[0].style.overflow = 'auto'
     }
-  }, [authModal.isVisible])
+  }, [modal.isVisible])
 
-  return <AuthModalContext.Provider value={{ authModal, setAuthModal }}>{children}</AuthModalContext.Provider>
+  return <ModalContext.Provider value={{ modal, setModal }}>{children}</ModalContext.Provider>
 }
 
-export default AuthModalProvider
+export default ModalProvider

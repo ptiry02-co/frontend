@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 const Backdrop = ({ onClose }) => {
-  return <Background onClick={onClose}></Background>
+  return <Background onClick={() => onClose({ isVisible: false, component: null })}></Background>
 }
 
 export default Backdrop

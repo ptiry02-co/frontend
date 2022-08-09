@@ -7,6 +7,7 @@ export default createGlobalStyle`
         box-sizing: border-box;
     }
     body {
+        position: relative;
         width: 100vw;
         font-family: Georgia, 'Times New Roman', Times, serif;
         font-size: 1rem;
@@ -20,5 +21,7 @@ export default createGlobalStyle`
         position: absolute;
         display: flex;
         flex-direction: column;
+        width: auto;
+        height: auto;
     }
 `
