@@ -7,6 +7,18 @@ export default createGlobalStyle`
         box-sizing: border-box;
     }
     body {
+        width: 100vw;
         font-family: Georgia, 'Times New Roman', Times, serif;
+        font-size: 1rem;
+    }
+    #root {
+        display: flex;
+        flex-direction: column;
+    }
+    #modals{
+        z-index: 1;
+        position: absolute;
+        display: flex;
+        flex-direction: column;
     }
 `

@@ -1,9 +1,16 @@
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import App from './App'
+import UserProvider from './context/auth.context'
+import ModalProvider from './context/modal.context'
+// import 'tippy.js/dist/tippy.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter>
-    <App />
+    <ModalProvider>
+      <UserProvider>
+        <App />
+      </UserProvider>
+    </ModalProvider>
   </BrowserRouter>
 )

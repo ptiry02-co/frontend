@@ -1,16 +1,38 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { IoMdFitness } from 'react-icons/io/index'
+import { IoExitOutline } from 'react-icons/io5/index'
 import styled from 'styled-components'
-import logo from '../assets/logo.jpeg'
+import logo from '../assets/logo.png'
 
-const Navbar = () => {
+const Navbar = ({ user, handleModal, logOut }) => {
+  const navigate = useNavigate()
   return (
     <Wrapper>
       <Link to='/'>
         <Logo src={logo} alt='Logo' />
       </Link>
       <Menu>
-        <MyLink>Log In</MyLink>
-        <MyLink>Sign Up</MyLink>
+        {user === undefined ? (
+          <></>
+        ) : user === null ? (
+          <>
+            <MyLink onClick={() => handleModal(false)}>Log in</MyLink> |{' '}
+            <MyLink onClick={() => handleModal(true)}>Sign up</MyLink>
+          </>
+        ) : (
+          <>
+            <MyLink onClick={() => navigate('/profile')}>
+              {' '}
+              <IoMdFitness />
+              My Profile
+            </MyLink>{' '}
+            |{' '}
+            <MyLink onClick={logOut}>
+              {' '}
+              <IoExitOutline /> Log out
+            </MyLink>
+          </>
+        )}
       </Menu>
     </Wrapper>
   )
@@ -20,9 +42,10 @@ export default Navbar
 
 const Wrapper = styled.div`
   width: 100vw;
-  padding: 12px 0;
+  height: 85px;
   display: flex;
   justify-content: space-around;
+  align-items: center;
   border-bottom: 1px solid black;
   margin-bottom: 60px;
   box-shadow: 0 3px 10px 0px #cccccc;
@@ -33,16 +56,21 @@ const Logo = styled.img`
 const Menu = styled.nav`
   margin: 0;
   padding: 0;
-  list-style: none;
   display: flex;
-  column-gap: 5%;
-  text-decoration: none;
+  align-items: center;
+  column-gap: 5px;
 `
-const MyLink = styled.a`
-  width: 60px;
-  align-self: center;
+const MyLink = styled.p`
+  box-sizing: content-box;
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+  color: black;
   :hover {
-    cursor: pointer;
     text-decoration: underline;
+    cursor: pointer;
+  }
+  :active {
+    color: lightblue;
   }
 `

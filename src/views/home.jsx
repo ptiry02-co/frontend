@@ -1,10 +1,8 @@
 import styled from 'styled-components'
-import Navbar from '../components/Navbar'
 
 const HomePage = () => {
   return (
     <Wrapper>
-      <Navbar />
       <h1>MyWorkout Planner Home Page</h1>
     </Wrapper>
   )
