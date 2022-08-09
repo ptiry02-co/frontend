@@ -99,7 +99,8 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   h1 {
-    margin-bottom: 30px;
+    text-align: center;
+    margin: 0 5% 30px;
   }
 `
 const Button = styled.button`
@@ -116,6 +117,9 @@ const PlansContainer = styled.div`
   justify-items: center;
   align-items: stretch;
   row-gap: 30px;
+  @media (max-width: 365px) {
+    padding: 0 0 100px;
+  }
 `
 const Info = styled.div`
   display: flex;
