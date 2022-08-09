@@ -1,8 +1,11 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { IoMdFitness } from 'react-icons/io/index'
+import { IoExitOutline } from 'react-icons/io5/index'
 import styled from 'styled-components'
 import logo from '../assets/logo.png'
 
 const Navbar = ({ user, handleModal, logOut }) => {
+  const navigate = useNavigate()
   return (
     <Wrapper>
       <Link to='/'>
@@ -17,7 +20,18 @@ const Navbar = ({ user, handleModal, logOut }) => {
             <MyLink onClick={() => handleModal(true)}>Sign up</MyLink>
           </>
         ) : (
-          <MyLink onClick={logOut}>Log out</MyLink>
+          <>
+            <MyLink onClick={() => navigate('/profile')}>
+              {' '}
+              <IoMdFitness />
+              My Profile
+            </MyLink>{' '}
+            |{' '}
+            <MyLink onClick={logOut}>
+              {' '}
+              <IoExitOutline /> Log out
+            </MyLink>
+          </>
         )}
       </Menu>
     </Wrapper>
@@ -48,7 +62,9 @@ const Menu = styled.nav`
 `
 const MyLink = styled.p`
   box-sizing: content-box;
-  text-decoration: none;
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
   color: black;
   :hover {
     text-decoration: underline;

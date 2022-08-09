@@ -27,8 +27,8 @@ const AuthForm = ({ isNew = false }) => {
   }
   return (
     <>
-      <Backdrop />
-      <Box>
+      <Backdrop onClose={() => setAuthModal({ ...authModal, isVisible: false })} />
+      <Box isModal>
         <Title>{isNew ? 'Sign Up' : 'Log In'}</Title>
         <label>Email</label>
         <TextInput ref={email} type='email' />

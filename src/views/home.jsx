@@ -15,8 +15,4 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 3000px;
-  > svg {
-    height: auto;
-  }
 `

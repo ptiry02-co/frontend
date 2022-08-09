@@ -1,25 +1,25 @@
 import styled from 'styled-components'
 
-const Box = ({ children }) => {
-  return <Container>{children}</Container>
+const Box = ({ children, isModal = false }) => {
+  return <Container isModal={isModal}>{children}</Container>
 }
 
 export default Box
 
 const Container = styled.div`
-  position: absolute;
+  position: ${({ isModal }) => (isModal ? 'absolute' : 'relative')};
   align-self: center;
-  margin-top: 10%;
-  padding: 30px 3%;
+  margin-top: ${({ isModal }) => (isModal ? '10%' : 0)};
+  padding: 30px 7%;
   border: 1px solid black;
   border-radius: 30px;
-  width: 25%;
   min-width: 200px;
   display: flex;
   flex-direction: column;
   row-gap: 10px;
   background-color: white;
-  z-index: 1;
+  z-index: ${({ isModal }) => (isModal ? 1 : 0)};
+  background-color: ${({ isModal }) => (isModal ? 'white' : '#D9D9D9')};
   > * {
     align-self: center;
   }

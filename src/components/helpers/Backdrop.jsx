@@ -1,10 +1,7 @@
-import { useContext } from 'react'
 import styled from 'styled-components'
-import { AuthModalContext } from '../../context/modal.context'
 
-const Backdrop = () => {
-  const { authModal, setAuthModal } = useContext(AuthModalContext)
-  return <Background onClick={() => setAuthModal({ ...authModal, isVisible: false })}></Background>
+const Backdrop = ({ onClose }) => {
+  return <Background onClick={onClose}></Background>
 }
 
 export default Backdrop
