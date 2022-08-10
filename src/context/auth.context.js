@@ -6,8 +6,7 @@ export const UserContext = createContext()
 
 const UserProvider = ({ children }) => {
   const navigate = useNavigate()
-  // eslint-disable-next-line prefer-const
-  let [user, setUser] = useState()
+  const [user, setUser] = useState()
   const { checkUser } = useAuth()
 
   useEffect(() => {
