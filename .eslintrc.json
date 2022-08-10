@@ -21,6 +21,7 @@
     "no-unneeded-ternary": "off",
     "react-hooks/exhaustive-deps": 0,
     "no-unused-vars": "warn",
-    "indent": "off"
+    "indent": "off",
+    "no-constant-condition": "off"
   }
 }
