@@ -62,7 +62,7 @@ const Profile = () => {
               {plan.exercises.map(ex => (
                 <li key={ex._id}>{ex.name}</li>
               ))}
-              <CustomLink to='/exercises'>add exercise</CustomLink>
+              <CustomLink to={`/${plan._id}/exercises`}>add exercise</CustomLink>
             </ExerList>
             <Button
               onClick={() => {

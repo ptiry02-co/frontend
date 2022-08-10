@@ -3,6 +3,7 @@ import { getPlan, getPlans, postPlan, putPlan, remove } from '../api/plans'
 
 const usePlans = () => {
   const [plansData, setPlansData] = useState({})
+  const [plan, setPlan] = useState({})
 
   const fetchPlans = async () => {
     const token = localStorage.getItem('authToken')
@@ -45,6 +46,7 @@ const usePlans = () => {
     const token = localStorage.getItem('authToken')
     try {
       const res = await getPlan({ ...data, token })
+      setPlan(res.data)
       return res.data
     } catch (error) {
       console.log('Error fetching plan details: ', error)
@@ -55,6 +57,6 @@ const usePlans = () => {
     fetchPlans()
   }, [])
 
-  return { plansData, addPlan, fetchPlans, editPlan, deletePlan, fetchPlan }
+  return { plan, plansData, addPlan, fetchPlans, editPlan, deletePlan, fetchPlan }
 }
 export default usePlans

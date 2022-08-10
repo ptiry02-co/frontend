@@ -1,9 +1,6 @@
-import { apiCall } from './axios.config'
+import { api, app } from './axios.config'
 
-export const getAllExercises = () =>
-  apiCall.get('/exercises', {
-    headers: {
-      'X-RapidAPI-Key': process.env.REACT_APP_API_KEY,
-      'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com'
-    }
-  })
+export const getAllExercises = () => api.get('/exercises')
+
+export const postExercise = data =>
+  app.post('/exercises/new', data, { headers: { authorization: `Bearer ${data.token}` } })

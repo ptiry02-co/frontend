@@ -30,6 +30,7 @@ function App() {
         <Route path='/profile' element={<Profile />} />
         <Route path='/exercises' element={<ExersList />} />
         <Route path='/plans/:planId' element={<PlanDetails />} />
+        <Route path='/:planId/exercises' element={<ExersList />} />
       </Routes>
     </>
   )
