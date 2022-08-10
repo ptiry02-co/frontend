@@ -8,6 +8,7 @@ export default Box
 
 const Container = styled.div`
   position: ${({ isModal }) => (isModal ? 'fixed' : 'relative')};
+  margin: 0 5%;
   align-self: center;
   text-align: center;
   top: ${({ isModal }) => (isModal ? '10%' : 'auto')};

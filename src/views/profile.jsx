@@ -6,6 +6,7 @@ import Box from '../components/helpers/Box'
 import usePlans from '../hooks/usePlans'
 import { ModalContext } from '../context/modal.context'
 import { Link } from 'react-router-dom'
+import GridContainer from '../components/helpers/GridContainer'
 
 const Profile = () => {
   const { modal, setModal } = useContext(ModalContext)
@@ -49,12 +50,12 @@ const Profile = () => {
         >
           Add new Plan
         </Button>
-        <PlansContainer>
+        <GridContainer>
           {plansData.userPlans?.map(plan => (
             <Box key={plan._id}>
-              <DetailsLink to={`/plans/${plan._id}`}>
+              <CustomLink to={`/plans/${plan._id}`}>
                 <h2>{plan.name?.toUpperCase()}</h2>
-              </DetailsLink>
+              </CustomLink>
               <Info>
                 <span>Type: {plan.type}</span>
                 <span>Day: {plan.day}</span>
@@ -63,6 +64,7 @@ const Profile = () => {
                 {plan.exercises.map(ex => (
                   <li key={ex._id}>{ex.name}</li>
                 ))}
+                <CustomLink to='/exercises'>add exercise</CustomLink>
               </ExerList>
               <Button
                 onClick={() => {
@@ -88,7 +90,7 @@ const Profile = () => {
               </Button>
             </Box>
           ))}
-        </PlansContainer>
+        </GridContainer>
       </Wrapper>
     </>
   )
@@ -106,7 +108,7 @@ const Wrapper = styled.div`
     margin: 0 5% 30px;
   }
 `
-const DetailsLink = styled(Link)`
+const CustomLink = styled(Link)`
   color: black;
   :active {
     color: #6e2504;
@@ -115,20 +117,6 @@ const DetailsLink = styled(Link)`
 const Button = styled.button`
   padding: 3px 5px;
   border-radius: 7px;
-`
-const PlansContainer = styled.div`
-  display: grid;
-  width: 100%;
-  padding: 0 5% 100px;
-  margin-top: 30px;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  grid-template-rows: repeat(auto-fit, minmax(200px, 1fr));
-  justify-items: center;
-  align-items: stretch;
-  row-gap: 30px;
-  @media (max-width: 365px) {
-    padding: 0 0 100px;
-  }
 `
 const Info = styled.div`
   display: flex;

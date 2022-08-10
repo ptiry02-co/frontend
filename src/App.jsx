@@ -6,7 +6,8 @@ import { ModalContext } from './context/modal.context'
 import Navbar from './components/Navbar'
 import { UserContext } from './context/auth.context'
 import Profile from './views/profile'
-import PlanDetails from './components/PlanDetails'
+import PlanDetails from './views/plan-details'
+import ExersList from './views/exercises'
 
 function App() {
   const navigate = useNavigate()
@@ -27,6 +28,7 @@ function App() {
       <Routes>
         <Route path='/' element={<HomePage />} />
         <Route path='/profile' element={<Profile />} />
+        <Route path='/exercises' element={<ExersList />} />
         <Route path='/plans/:planId' element={<PlanDetails />} />
       </Routes>
     </>
