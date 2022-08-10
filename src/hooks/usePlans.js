@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react'
 import { getPlan, getPlans, postPlan, putPlan, remove } from '../api/plans'
 
-const token = localStorage.getItem('authToken')
-
 const usePlans = () => {
   const [plansData, setPlansData] = useState({})
 
   const fetchPlans = async () => {
+    const token = localStorage.getItem('authToken')
     try {
       const res = await getPlans({ token })
       setPlansData(res.data)
@@ -16,6 +15,7 @@ const usePlans = () => {
   }
 
   const addPlan = async data => {
+    const token = localStorage.getItem('authToken')
     try {
       await postPlan({ ...data, token })
     } catch (error) {
@@ -24,6 +24,7 @@ const usePlans = () => {
   }
 
   const editPlan = async data => {
+    const token = localStorage.getItem('authToken')
     try {
       await putPlan({ ...data, token })
     } catch (error) {
@@ -32,6 +33,7 @@ const usePlans = () => {
   }
 
   const deletePlan = async data => {
+    const token = localStorage.getItem('authToken')
     try {
       await remove({ ...data, token })
     } catch (error) {
@@ -40,6 +42,7 @@ const usePlans = () => {
   }
 
   const fetchPlan = async data => {
+    const token = localStorage.getItem('authToken')
     try {
       const res = await getPlan({ ...data, token })
       return res.data
