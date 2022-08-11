@@ -1,4 +1,4 @@
-import { useContext, useRef } from 'react'
+import { useContext, useRef, useState } from 'react'
 import styled from 'styled-components'
 import Box from './helpers/Box'
 import { UserContext } from '../context/auth.context'
@@ -9,6 +9,7 @@ import { ModalContext } from '../context/modal.context'
 import { useNavigate } from 'react-router-dom'
 
 const AuthForm = ({ isNew = false, onClose }) => {
+  const [error, setError] = useState()
   const navigate = useNavigate()
   const { authUser } = useAuth(isNew)
   const { setUser } = useContext(UserContext)
@@ -18,6 +19,10 @@ const AuthForm = ({ isNew = false, onClose }) => {
 
   const handleAuth = async () => {
     const data = { email: email.current.value, password: pass.current.value }
+    if (!email.current.value || !pass.current.value) {
+      setError({ message: 'Please enter valid credentials.' })
+      return
+    }
     try {
       const user = await authUser(data)
       setUser(user)
@@ -25,6 +30,7 @@ const AuthForm = ({ isNew = false, onClose }) => {
       navigate('/profile')
     } catch (error) {
       console.log('Something went wrong...', error)
+      setError(error)
     }
   }
   return (
@@ -32,6 +38,7 @@ const AuthForm = ({ isNew = false, onClose }) => {
       <Backdrop onClose={onClose} />
       <Box isModal>
         <Title>{isNew ? 'Sign Up' : 'Log In'}</Title>
+        {error && <Error>{error.message}</Error>}
         <label>Email</label>
         <TextInput ref={email} type='email' />
         <label>Password</label>
@@ -75,4 +82,7 @@ const ModalLink = styled.span`
   :active {
     color: darkviolet;
   }
+`
+const Error = styled.p`
+  color: red;
 `
