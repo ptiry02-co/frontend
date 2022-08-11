@@ -39,6 +39,7 @@ const PlanDetail = () => {
 export default PlanDetail
 
 const Wrapper = styled.div`
+  width: 100%;
   align-self: center;
   text-align: center;
   display: flex;
