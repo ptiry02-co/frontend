@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { getPlan, getPlans, postPlan, putPlan, remove } from '../api/plans'
 
 const usePlans = () => {
@@ -52,10 +52,6 @@ const usePlans = () => {
       console.log('Error fetching plan details: ', error)
     }
   }
-
-  /*   useEffect(() => {
-    fetchPlans()
-  }, []) */
 
   return { plan, plansData, addPlan, fetchPlans, editPlan, deletePlan, fetchPlan }
 }
