@@ -72,6 +72,9 @@ const Title = styled.h2`
 const Button = styled.button`
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
+  :hover {
+    cursor: pointer;
+  }
 `
 const ModalLink = styled.span`
   text-decoration: underline;
