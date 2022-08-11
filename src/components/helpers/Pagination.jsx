@@ -8,7 +8,9 @@ const Pagination = ({ total, selectedPage, onChangePage }) => {
 
   function display() {
     const pageNums = []
-    for (let n = 1; n < Math.floor(total / 16); n++) {
+    const totalPages = total % 16 ? Math.floor(total / 16 + 1) : Math.floor(total / 16)
+    console.log('The list: ', totalPages)
+    for (let n = 1; n <= totalPages; n++) {
       pageNums.push(n)
     }
     setPages(pageNums)
