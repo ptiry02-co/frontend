@@ -40,19 +40,21 @@ const ExersList = () => {
               <Name>{item.name}</Name>
               <Gif src={item.gifUrl} alt={item.name} />
               <p>Target muscle: {item.target}</p>
-              <AddLink
-                onClick={() =>
-                  setModal({
-                    isVisible: true,
-                    component: createPortal(
-                      <ExerciseForm onClose={setModal} item={item} onSubmit={newExercise} planId={planId} />,
-                      document.getElementById('modals')
-                    )
-                  })
-                }
-              >
-                Add Exercise
-              </AddLink>
+              {planId && (
+                <AddLink
+                  onClick={() =>
+                    setModal({
+                      isVisible: true,
+                      component: createPortal(
+                        <ExerciseForm onClose={setModal} item={item} onSubmit={newExercise} planId={planId} />,
+                        document.getElementById('modals')
+                      )
+                    })
+                  }
+                >
+                  Add Exercise
+                </AddLink>
+              )}
             </Box>
           ))}
         </GridContainer>
