@@ -9,8 +9,6 @@ import { ModalContext } from '../context/modal.context'
 import { useNavigate } from 'react-router-dom'
 
 const AuthForm = ({ isNew = false, onClose }) => {
-  const [error, setError] = useState()
-  const navigate = useNavigate()
   const { authUser } = useAuth(isNew)
   const { setUser } = useContext(UserContext)
   const { modal, setModal } = useContext(ModalContext)
@@ -72,17 +70,4 @@ const Title = styled.h2`
 const Button = styled.button`
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
-`
-const ModalLink = styled.span`
-  text-decoration: underline;
-  color: blue;
-  :hover {
-    cursor: pointer;
-  }
-  :active {
-    color: darkviolet;
-  }
-`
-const Error = styled.p`
-  color: red;
 `
