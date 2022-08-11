@@ -6,19 +6,25 @@ export const UserContext = createContext()
 
 const UserProvider = ({ children }) => {
   const navigate = useNavigate()
-  const [user, setUser] = useState()
+  const [user, setUser] = useState(null)
   const { checkUser } = useAuth()
+
+  const verification = user => {
+    if (!user) {
+      setUser(null)
+      navigate('/')
+      return
+    }
+    setUser(user)
+  }
 
   useEffect(() => {
     const token = localStorage.getItem('authToken')
-    checkUser().then(user => {
-      if (!token || !user) {
-        setUser(null)
-        navigate('/')
-        return
-      }
-      setUser(user)
-    })
+    if (token || window.location.pathname.split('/')[1] !== 'exercises') {
+      checkUser().then(user => {
+        verification(user)
+      })
+    }
   }, [])
 
   return <UserContext.Provider value={{ user, setUser }}>{children}</UserContext.Provider>

@@ -53,9 +53,9 @@ const usePlans = () => {
     }
   }
 
-  useEffect(() => {
+  /*   useEffect(() => {
     fetchPlans()
-  }, [])
+  }, []) */
 
   return { plan, plansData, addPlan, fetchPlans, editPlan, deletePlan, fetchPlan }
 }

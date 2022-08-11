@@ -31,8 +31,8 @@ function App() {
         <Route path='/profile' element={<Profile />} />
         <Route path='/exercises' element={<ExersList />} />
         <Route path='/plans/:planId' element={<PlanDetails />} />
-        <Route path='/:planId/exercises' element={<ExersList />} />
-        <Route path='/:planId/exercises/:exerciseIndex' element={<ExerciseDetails />} />
+        <Route path='/profile/:planId/exercises' element={<ExersList />} />
+        <Route path='/profile/:planId/exercises/:exerciseIndex' element={<ExerciseDetails />} />
       </Routes>
     </>
   )
