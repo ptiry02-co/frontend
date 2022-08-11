@@ -9,12 +9,15 @@ import AuthForm from './AuthForm'
 
 const Navbar = ({ user, handleModal, logOut }) => {
   const navigate = useNavigate()
+  const location = window.location.pathname
   return (
-    <Wrapper>
-      <Link to='/'>
-        <Logo src={logo} alt='Logo' />
-      </Link>
-      <Menu>
+    <Wrapper isHome={location === '/'}>
+      {location !== '/' && (
+        <Link to='/'>
+          <Logo src={logo} alt='Logo' />
+        </Link>
+      )}
+      <Menu isHome={location === '/'}>
         {user === undefined ? (
           <></>
         ) : user === null ? (
@@ -66,14 +69,15 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  border-bottom: 1px solid black;
+  border-bottom: ${({ isHome }) => (isHome ? 'none' : '1px solid black')};
   margin-bottom: 60px;
-  box-shadow: 0 3px 10px 0px #cccccc;
+  box-shadow: ${({ isHome }) => (isHome ? 'none' : '0 3px 10px 0px #cccccc')};
 `
 const Logo = styled.img`
   width: 60px;
 `
 const Menu = styled.nav`
+  font-size: ${({ isHome }) => (isHome ? '1.5rem' : 'inherit')};
   margin: 0;
   padding: 0;
   display: flex;

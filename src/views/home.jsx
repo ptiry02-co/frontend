@@ -1,9 +1,10 @@
 import styled from 'styled-components'
+import logo from '../assets/logo.png'
 
 const HomePage = () => {
   return (
     <Wrapper>
-      <h1>MyWorkout Planner Home Page</h1>
+      <img src={logo} alt='logo' />
     </Wrapper>
   )
 }
@@ -15,4 +16,8 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  img {
+    border-radius: 50%;
+    box-shadow: 0 0 5px 5px darkgray;
+  }
 `

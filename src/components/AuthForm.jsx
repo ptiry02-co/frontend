@@ -4,12 +4,15 @@ import Box from './helpers/Box'
 import { UserContext } from '../context/auth.context'
 import useAuth from '../hooks/useAuth'
 import TextInput from './helpers/TextInput'
-import { Link } from 'react-router-dom'
 import Backdrop from './helpers/Backdrop'
+import { ModalContext } from '../context/modal.context'
+import { useNavigate } from 'react-router-dom'
 
 const AuthForm = ({ isNew = false, onClose }) => {
+  const navigate = useNavigate()
   const { authUser } = useAuth(isNew)
   const { setUser } = useContext(UserContext)
+  const { modal, setModal } = useContext(ModalContext)
   const email = useRef(),
     pass = useRef()
 
@@ -19,6 +22,7 @@ const AuthForm = ({ isNew = false, onClose }) => {
       const user = await authUser(data)
       setUser(user)
       onClose({ isVisible: false, component: null })
+      navigate('/profile')
     } catch (error) {
       console.log('Something went wrong...', error)
     }
@@ -34,11 +38,17 @@ const AuthForm = ({ isNew = false, onClose }) => {
         <TextInput ref={pass} type='password' />
         {isNew ? (
           <p>
-            Already have an account? Log in <Link to='/login'>here</Link>
+            Already have an account? Log in{' '}
+            <ModalLink onClick={() => setModal({ ...modal, component: <AuthForm onClose={setModal} /> })}>
+              here
+            </ModalLink>
           </p>
         ) : (
           <p>
-            Don&apos;t have an account? Sign up <Link to='/signup'>here</Link>
+            Don&apos;t have an account? Sign up{' '}
+            <ModalLink onClick={() => setModal({ ...modal, component: <AuthForm isNew onClose={setModal} /> })}>
+              here
+            </ModalLink>
           </p>
         )}
         <Button onClick={handleAuth}>{isNew ? 'Sign Up' : 'Log In'}</Button>
@@ -55,4 +65,14 @@ const Title = styled.h2`
 const Button = styled.button`
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
+`
+const ModalLink = styled.span`
+  text-decoration: underline;
+  color: blue;
+  :hover {
+    cursor: pointer;
+  }
+  :active {
+    color: darkviolet;
+  }
 `
