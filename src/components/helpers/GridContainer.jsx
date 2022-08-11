@@ -13,8 +13,8 @@ const Wrapper = styled.div`
   margin-top: 30px;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   justify-items: center;
-  align-items: stretch;
   row-gap: 30px;
+  column-gap: 30px;
   @media (max-width: 365px) {
     padding: 0 0 100px;
   }

@@ -51,19 +51,21 @@ const Profile = () => {
       <GridContainer>
         {plansData.userPlans?.map(plan => (
           <Box key={plan._id}>
-            <CustomLink to={`/plans/${plan._id}`}>
-              <h2>{plan.name?.toUpperCase()}</h2>
-            </CustomLink>
-            <Info>
-              <span>Type: {plan.type}</span>
-              <span>Day: {plan.day}</span>
-            </Info>
-            <ExerList>
-              {plan.exercises.map(ex => (
-                <li key={ex._id}>{ex.name}</li>
-              ))}
-              <CustomLink to={`/${plan._id}/exercises`}>add exercise</CustomLink>
-            </ExerList>
+            <Contents>
+              <CustomLink to={`/plans/${plan._id}`}>
+                <h2>{plan.name?.toUpperCase()}</h2>
+              </CustomLink>
+              <Info>
+                <span>Type: {plan.type}</span>
+                <span>Day: {plan.day}</span>
+              </Info>
+              <ExerList>
+                {plan.exercises.map(ex => (
+                  <li key={ex._id}>{ex.name}</li>
+                ))}
+                <CustomLink to={`/${plan._id}/exercises`}>add exercise</CustomLink>
+              </ExerList>
+            </Contents>
             <Button
               onClick={() => {
                 setModal({
@@ -105,6 +107,11 @@ const Wrapper = styled.div`
     margin: 0 5% 30px;
   }
 `
+const Contents = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+`
 const CustomLink = styled(Link)`
   color: black;
   :active {
@@ -118,6 +125,7 @@ const Button = styled.button`
 const Info = styled.div`
   display: flex;
   column-gap: 10px;
+  align-self: center;
 `
 const ExerList = styled.div`
   list-style: none;
