@@ -11,13 +11,12 @@ const ExerciseForm = ({ onClose, item, onSubmit, planId }) => {
     reps = useRef()
 
   const handleSubmit = async e => {
-    console.log('Event Target', e.target.innerText)
     const data = {
       planId,
       exercise: {
         gif: item.gifUrl,
         name: item.name,
-        bodyPart: item.target,
+        targetMuscle: item.target,
         sets: sets.current.value,
         reps: reps.current.value
       }

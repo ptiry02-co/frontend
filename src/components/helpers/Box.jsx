@@ -23,9 +23,9 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: ${({ isModal }) => (isModal ? 'flex-sart' : 'space-between')};
   row-gap: 10px;
-  background-color: white;
   z-index: ${({ isModal }) => (isModal ? 1 : 0)};
   background-color: ${({ isModal }) => (isModal ? 'white' : '#D9D9D9')};
+  box-shadow: 0 0 5px 5px darkgray;
   > * {
     align-self: center;
   }
