@@ -8,6 +8,8 @@ export default Box
 
 const Container = styled.div`
   position: ${({ isModal }) => (isModal ? 'fixed' : 'relative')};
+  height: ${({ isModal }) => (isModal ? 'auto' : '100%')};
+  width: ${({ isModal }) => (isModal ? 'auto' : '100%')};
   margin: 0 5%;
   align-self: center;
   text-align: center;
@@ -19,6 +21,7 @@ const Container = styled.div`
   min-width: 200px;
   display: flex;
   flex-direction: column;
+  justify-content: ${({ isModal }) => (isModal ? 'flex-sart' : 'space-between')};
   row-gap: 10px;
   background-color: white;
   z-index: ${({ isModal }) => (isModal ? 1 : 0)};
