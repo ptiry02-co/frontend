@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import styled from 'styled-components'
 import PlanForm from '../components/PlanForm'
@@ -32,6 +32,10 @@ const Profile = () => {
     }
   }
 
+  useEffect(() => {
+    fetchPlans()
+  }, [])
+
   return (
     <Wrapper>
       <h1>My Workout Plans</h1>
@@ -61,11 +65,11 @@ const Profile = () => {
               </Info>
               <ExerList>
                 {plan.exercises.map((ex, i) => (
-                  <CustomLink isexercise={`${true}`} key={ex._id} to={`/${plan._id}/exercises/${i}`}>
+                  <CustomLink isexercise={`${true}`} key={ex._id} to={`/profile/${plan._id}/exercises/${i}`}>
                     <li>{ex.name}</li>
                   </CustomLink>
                 ))}
-                <CustomLink to={`/${plan._id}/exercises`}>add exercise</CustomLink>
+                <CustomLink to={`/profile/${plan._id}/exercises`}>add exercise</CustomLink>
               </ExerList>
             </Contents>
             <Button

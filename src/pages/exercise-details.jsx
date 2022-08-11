@@ -28,13 +28,13 @@ const ExerciseDetails = () => {
       <Arrows>
         <Arrow
           isFirst={exerciseIndex === '0'}
-          prev={() => navigate(`/${planId}/exercises/${Number(exerciseIndex) - 1}`)}
+          prev={() => navigate(`/profile/${planId}/exercises/${Number(exerciseIndex) - 1}`)}
         />
         <Gif src={exercises[exerciseIndex]?.gif} alt={exercises[exerciseIndex]?.name} />
         <Arrow
           isRight
           isLast={exerciseIndex === `${exercises.length - 1}`}
-          next={() => navigate(`/${planId}/exercises/${Number(exerciseIndex) + 1}`)}
+          next={() => navigate(`/profile/${planId}/exercises/${Number(exerciseIndex) + 1}`)}
         />
       </Arrows>
     </Wrapper>
