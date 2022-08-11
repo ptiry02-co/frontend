@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { getAllExercises, postExercise } from '../api/exercises'
+import { getAllExercises, postExercise, removeExercise } from '../api/exercises'
 
 const useExercises = () => {
   const [list, setList] = useState([])
@@ -32,6 +32,15 @@ const useExercises = () => {
     }
   }
 
+  const deleteExercise = async data => {
+    const token = localStorage.getItem('authToken')
+    try {
+      await removeExercise({ ...data, token })
+    } catch (error) {
+      console.log('Error deleting exercise: ', error)
+    }
+  }
+
   const filterByBodyPart = (list, planType) => {
     let finalList = []
     bodyPartGroups[planType.toLowerCase()].forEach(bp => {
@@ -40,6 +49,6 @@ const useExercises = () => {
     setList(finalList)
   }
 
-  return { list, fetchAllExercises, newExercise, filterByBodyPart }
+  return { list, fetchAllExercises, newExercise, filterByBodyPart, deleteExercise }
 }
 export default useExercises
