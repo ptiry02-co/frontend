@@ -21,7 +21,7 @@ export default createGlobalStyle`
         position: absolute;
         display: flex;
         flex-direction: column;
-        width: auto;
+        width: 100vw;
         height: auto;
     }
 `

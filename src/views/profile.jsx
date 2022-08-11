@@ -6,9 +6,10 @@ import Box from '../components/helpers/Box'
 import usePlans from '../hooks/usePlans'
 import { ModalContext } from '../context/modal.context'
 import { Link } from 'react-router-dom'
+import GridContainer from '../components/helpers/GridContainer'
 
 const Profile = () => {
-  const { modal, setModal } = useContext(ModalContext)
+  const { setModal } = useContext(ModalContext)
   const { plansData, fetchPlans, addPlan, editPlan, deletePlan } = usePlans()
 
   const handleSubmit = async data => {
@@ -32,65 +33,63 @@ const Profile = () => {
   }
 
   return (
-    <>
-      {modal.component}
-      <Wrapper>
-        <h1>My Workout Plans</h1>
-        <Button
-          onClick={() =>
-            setModal({
-              isVisible: true,
-              component: createPortal(
-                <PlanForm onClose={setModal} info={plansData.enums} onSubmit={handleSubmit} />,
-                document.getElementById('modals')
-              )
-            })
-          }
-        >
-          Add new Plan
-        </Button>
-        <PlansContainer>
-          {plansData.userPlans?.map(plan => (
-            <Box key={plan._id}>
-              <DetailsLink to={`/plans/${plan._id}`}>
-                <h2>{plan.name?.toUpperCase()}</h2>
-              </DetailsLink>
-              <Info>
-                <span>Type: {plan.type}</span>
-                <span>Day: {plan.day}</span>
-              </Info>
-              <ExerList>
-                {plan.exercises.map(ex => (
-                  <li key={ex._id}>{ex.name}</li>
-                ))}
-              </ExerList>
-              <Button
-                onClick={() => {
-                  setModal({
-                    isVisible: true,
-                    component: createPortal(
-                      <PlanForm
-                        onClose={setModal}
-                        info={plansData.enums}
-                        onSubmit={handleSubmit}
-                        onDelete={handleDelete}
-                        editData={{
-                          planId: plan._id,
-                          plan: { name: plan.name, type: plan.type, day: plan.day, description: plan.description }
-                        }}
-                      />,
-                      document.getElementById('modals')
-                    )
-                  })
-                }}
-              >
-                Edit Plan
-              </Button>
-            </Box>
-          ))}
-        </PlansContainer>
-      </Wrapper>
-    </>
+    <Wrapper>
+      <h1>My Workout Plans</h1>
+      <Button
+        onClick={() =>
+          setModal({
+            isVisible: true,
+            component: createPortal(
+              <PlanForm onClose={setModal} info={plansData.enums} onSubmit={handleSubmit} />,
+              document.getElementById('modals')
+            )
+          })
+        }
+      >
+        Add new Plan
+      </Button>
+      <GridContainer>
+        {plansData.userPlans?.map(plan => (
+          <Box key={plan._id}>
+            <CustomLink to={`/plans/${plan._id}`}>
+              <h2>{plan.name?.toUpperCase()}</h2>
+            </CustomLink>
+            <Info>
+              <span>Type: {plan.type}</span>
+              <span>Day: {plan.day}</span>
+            </Info>
+            <ExerList>
+              {plan.exercises.map(ex => (
+                <li key={ex._id}>{ex.name}</li>
+              ))}
+              <CustomLink to={`/${plan._id}/exercises`}>add exercise</CustomLink>
+            </ExerList>
+            <Button
+              onClick={() => {
+                setModal({
+                  isVisible: true,
+                  component: createPortal(
+                    <PlanForm
+                      onClose={setModal}
+                      info={plansData.enums}
+                      onSubmit={handleSubmit}
+                      onDelete={handleDelete}
+                      editData={{
+                        planId: plan._id,
+                        plan: { name: plan.name, type: plan.type, day: plan.day, description: plan.description }
+                      }}
+                    />,
+                    document.getElementById('modals')
+                  )
+                })
+              }}
+            >
+              Edit Plan
+            </Button>
+          </Box>
+        ))}
+      </GridContainer>
+    </Wrapper>
   )
 }
 
@@ -106,7 +105,7 @@ const Wrapper = styled.div`
     margin: 0 5% 30px;
   }
 `
-const DetailsLink = styled(Link)`
+const CustomLink = styled(Link)`
   color: black;
   :active {
     color: #6e2504;
@@ -115,20 +114,6 @@ const DetailsLink = styled(Link)`
 const Button = styled.button`
   padding: 3px 5px;
   border-radius: 7px;
-`
-const PlansContainer = styled.div`
-  display: grid;
-  width: 100%;
-  padding: 0 5% 100px;
-  margin-top: 30px;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  grid-template-rows: repeat(auto-fit, minmax(200px, 1fr));
-  justify-items: center;
-  align-items: stretch;
-  row-gap: 30px;
-  @media (max-width: 365px) {
-    padding: 0 0 100px;
-  }
 `
 const Info = styled.div`
   display: flex;

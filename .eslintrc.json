@@ -19,6 +19,9 @@
     "react/react-in-jsx-scope": 0,
     "multiline-ternary": "off",
     "no-unneeded-ternary": "off",
-    "react-hooks/exhaustive-deps": 0
+    "react-hooks/exhaustive-deps": 0,
+    "no-unused-vars": "warn",
+    "indent": "off",
+    "no-constant-condition": "off"
   }
 }

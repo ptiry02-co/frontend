@@ -7,7 +7,7 @@ const Backdrop = ({ onClose }) => {
 export default Backdrop
 
 const Background = styled.div`
-  position: relative;
+  position: fixed;
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.4);
