@@ -1,13 +1,13 @@
 import { Route, Routes, useNavigate } from 'react-router-dom'
-import HomePage from './views/home'
+import HomePage from './pages/home'
 import GlobalStyles from './styles/globalStyles'
 import { useContext } from 'react'
 import { ModalContext } from './context/modal.context'
 import Navbar from './components/Navbar'
 import { UserContext } from './context/auth.context'
-import Profile from './views/profile'
-import PlanDetails from './views/plan-details'
-import ExersList from './views/exercises'
+import Profile from './pages/profile'
+import PlanDetails from './pages/plan-details'
+import ExersList from './pages/exercises'
 
 function App() {
   const navigate = useNavigate()
