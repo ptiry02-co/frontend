@@ -1,13 +1,24 @@
 import React, { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import Box from '../components/helpers/Box'
 import GridContainer from '../components/helpers/GridContainer'
+import useExercises from '../hooks/useExercises'
 import usePlans from '../hooks/usePlans'
 
 const PlanDetail = () => {
   const { planId } = useParams()
   const { plan, fetchPlan } = usePlans()
+  const { deleteExercise } = useExercises()
+  const navigate = useNavigate()
+
+  const handleDelete = (ev, exerciseId) => {
+    const conf = confirm('Are you sure?')
+    if (!conf) return ev.preventDefault()
+    deleteExercise({ exerciseId }).then(() => {
+      navigate(`/plans/${plan._id}`)
+    })
+  }
 
   useEffect(() => {
     fetchPlan({ planId })
@@ -29,6 +40,7 @@ const PlanDetail = () => {
             <Gif src={item.gif} alt={item.name} />
             <Name>{item.name}</Name>
             <p>Target muscle: {item.targetMuscle}</p>
+            <Button onClick={e => handleDelete(e, item._id)}>Delete</Button>
           </Box>
         ))}
       </GridContainer>
@@ -60,4 +72,14 @@ const Name = styled.h3`
 const Reps = styled.div`
   display: flex;
   column-gap: 10px;
+`
+const Button = styled.button`
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  background-color: #a20000;
+  color: white;
+  border-color: lightgray;
+  :hover {
+    cursor: pointer;
+  }
 `
