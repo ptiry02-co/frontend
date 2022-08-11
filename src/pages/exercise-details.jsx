@@ -16,7 +16,6 @@ const ExerciseDetails = () => {
   }
   useEffect(() => {
     fetchSavedExercises()
-    console.log('Testing: ', Number(exerciseIndex) + 1)
   }, [planId])
   return (
     <Wrapper>
