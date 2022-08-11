@@ -8,6 +8,7 @@ import { UserContext } from './context/auth.context'
 import Profile from './pages/profile'
 import PlanDetails from './pages/plan-details'
 import ExersList from './pages/exercises'
+import ExerciseDetails from './pages/exercise-details'
 
 function App() {
   const navigate = useNavigate()
@@ -31,6 +32,7 @@ function App() {
         <Route path='/exercises' element={<ExersList />} />
         <Route path='/plans/:planId' element={<PlanDetails />} />
         <Route path='/:planId/exercises' element={<ExersList />} />
+        <Route path='/:planId/exercises/:exerciseIndex' element={<ExerciseDetails />} />
       </Routes>
     </>
   )

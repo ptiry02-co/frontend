@@ -60,8 +60,10 @@ const Profile = () => {
                 <span>Day: {plan.day}</span>
               </Info>
               <ExerList>
-                {plan.exercises.map(ex => (
-                  <li key={ex._id}>{ex.name}</li>
+                {plan.exercises.map((ex, i) => (
+                  <CustomLink isexercise={`${true}`} key={ex._id} to={`/${plan._id}/exercises/${i}`}>
+                    <li>{ex.name}</li>
+                  </CustomLink>
                 ))}
                 <CustomLink to={`/${plan._id}/exercises`}>add exercise</CustomLink>
               </ExerList>
@@ -112,15 +114,19 @@ const Contents = styled.div`
   flex-direction: column;
   row-gap: 10px;
 `
-const CustomLink = styled(Link)`
+const CustomLink = styled(Link).attrs(({ isexercise }) => ({ isexercise }))`
+  text-decoration: ${({ isexercise }) => (isexercise ? 'none' : 'underline')};
   color: black;
-  :active {
-    color: #6e2504;
+  :hover {
+    ${({ isexercise }) => (isexercise ? 'li {background-color: #6e2504; color: white;}' : 'color: #6e2504;')}
   }
 `
 const Button = styled.button`
   padding: 3px 5px;
   border-radius: 7px;
+  :hover {
+    cursor: pointer;
+  }
 `
 const Info = styled.div`
   display: flex;

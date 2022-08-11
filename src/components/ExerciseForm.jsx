@@ -64,4 +64,7 @@ const Gif = styled.img`
 const Button = styled.button`
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
+  :hover {
+    cursor: pointer;
+  }
 `
