@@ -9,6 +9,7 @@ const useAuth = isNew => {
       return data.user
     } catch (error) {
       console.log('Error while authenticating: ', error)
+      throw error
     }
   }
 

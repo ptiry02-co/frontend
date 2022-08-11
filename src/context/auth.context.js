@@ -11,9 +11,8 @@ const UserProvider = ({ children }) => {
 
   useEffect(() => {
     const token = localStorage.getItem('authToken')
-    if (!token) return
     checkUser().then(user => {
-      if (!user) {
+      if (!token || !user) {
         setUser(null)
         navigate('/')
         return
