@@ -54,14 +54,21 @@ const Wrapper = styled.div`
 `
 const Gif = styled.img`
   align-self: center;
+<<<<<<< HEAD
   width: 99%;
+=======
+  width: 80%;
+>>>>>>> development
   border-radius: 50px;
   border: 1px solid black;
   margin-bottom: 15px;
   background-color: white;
+<<<<<<< HEAD
   @media (min-width: 420px) {
     width: 80%;
   }
+=======
+>>>>>>> development
   @media (min-width: 750px) {
     width: 45%;
   }
@@ -73,6 +80,10 @@ const Reps = styled.div`
 `
 const Arrows = styled.div`
   width: 100%;
+<<<<<<< HEAD
+=======
+  padding: 0 3%;
+>>>>>>> development
   align-self: center;
   display: flex;
   align-items: center;
