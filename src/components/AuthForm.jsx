@@ -76,8 +76,6 @@ const Button = styled.button`
     cursor: pointer;
   }
 `
-<<<<<<< HEAD
-=======
 const ModalLink = styled.span`
   text-decoration: underline;
   color: blue;
@@ -91,4 +89,3 @@ const ModalLink = styled.span`
 const Error = styled.p`
   color: red;
 `
->>>>>>> fce65a4 (login/signup error handeling)
