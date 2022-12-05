@@ -14,12 +14,12 @@ const AuthForm = ({ isNew = false, onClose }) => {
   const { authUser } = useAuth(isNew)
   const { setUser } = useContext(UserContext)
   const { modal, setModal } = useContext(ModalContext)
-  const email = useRef(),
+  const username = useRef(),
     pass = useRef()
 
   const handleAuth = async () => {
-    const data = { email: email.current.value, password: pass.current.value }
-    if (!email.current.value || !pass.current.value) {
+    const data = { username: username.current.value, password: pass.current.value }
+    if (!username.current.value || !pass.current.value) {
       setError({ message: 'Please enter valid credentials.' })
       return
     }
@@ -39,8 +39,8 @@ const AuthForm = ({ isNew = false, onClose }) => {
       <Box isModal>
         <Title>{isNew ? 'Sign Up' : 'Log In'}</Title>
         {error && <Error>{error.message}</Error>}
-        <label>Email</label>
-        <TextInput ref={email} type='email' />
+        <label>Username</label>
+        <TextInput ref={username} type='text' />
         <label>Password</label>
         <TextInput ref={pass} type='password' />
         {isNew ? (
