@@ -7,8 +7,10 @@ import TextInput from './helpers/TextInput'
 import Backdrop from './helpers/Backdrop'
 import { ModalContext } from '../context/modal.context'
 import { useNavigate } from 'react-router-dom'
+import ReactLoading from 'react-loading'
 
 const AuthForm = ({ isNew = false, onClose }) => {
+  const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState()
   const navigate = useNavigate()
   const { authUser } = useAuth(isNew)
@@ -18,17 +20,21 @@ const AuthForm = ({ isNew = false, onClose }) => {
     pass = useRef()
 
   const handleAuth = async () => {
+    setIsLoading(true)
     const data = { username: username.current.value, password: pass.current.value }
     if (!username.current.value || !pass.current.value) {
+      setIsLoading(false)
       setError({ message: 'Please enter valid credentials.' })
       return
     }
     try {
       const user = await authUser(data)
       setUser(user)
+      setIsLoading(false)
       onClose({ isVisible: false, component: null })
       navigate('/profile')
     } catch (error) {
+      setIsLoading(false)
       console.log('Something went wrong...', error)
       setError(error)
     }
@@ -37,28 +43,34 @@ const AuthForm = ({ isNew = false, onClose }) => {
     <>
       <Backdrop onClose={onClose} />
       <Box isModal>
-        <Title>{isNew ? 'Sign Up' : 'Log In'}</Title>
-        {error && <Error>{error.message}</Error>}
-        <label>Username</label>
-        <TextInput ref={username} type='text' />
-        <label>Password</label>
-        <TextInput ref={pass} type='password' />
-        {isNew ? (
-          <p>
-            Already have an account? Log in{' '}
-            <ModalLink onClick={() => setModal({ ...modal, component: <AuthForm onClose={setModal} /> })}>
-              here
-            </ModalLink>
-          </p>
+        {isLoading ? (
+          <Loading type='spin' color='#6e2504' height='30%' width='30%' />
         ) : (
-          <p>
-            Don&apos;t have an account? Sign up{' '}
-            <ModalLink onClick={() => setModal({ ...modal, component: <AuthForm isNew onClose={setModal} /> })}>
-              here
-            </ModalLink>
-          </p>
+          <>
+            <Title>{isNew ? 'Sign Up' : 'Log In'}</Title>
+            {error && <Error>{error.message}</Error>}
+            <label>Username</label>
+            <TextInput ref={username} type='text' />
+            <label>Password</label>
+            <TextInput ref={pass} type='password' />
+            {isNew ? (
+              <p>
+                Already have an account? Log in{' '}
+                <ModalLink onClick={() => setModal({ ...modal, component: <AuthForm onClose={setModal} /> })}>
+                  here
+                </ModalLink>
+              </p>
+            ) : (
+              <p>
+                Don&apos;t have an account? Sign up{' '}
+                <ModalLink onClick={() => setModal({ ...modal, component: <AuthForm isNew onClose={setModal} /> })}>
+                  here
+                </ModalLink>
+              </p>
+            )}
+            <Button onClick={handleAuth}>{isNew ? 'Sign Up' : 'Log In'}</Button>
+          </>
         )}
-        <Button onClick={handleAuth}>{isNew ? 'Sign Up' : 'Log In'}</Button>
       </Box>
     </>
   )
@@ -88,4 +100,7 @@ const ModalLink = styled.span`
 `
 const Error = styled.p`
   color: red;
+`
+const Loading = styled(ReactLoading)`
+  margin: 20% 0;
 `

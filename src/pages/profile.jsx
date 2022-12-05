@@ -7,10 +7,11 @@ import usePlans from '../hooks/usePlans'
 import { ModalContext } from '../context/modal.context'
 import { Link } from 'react-router-dom'
 import GridContainer from '../components/helpers/GridContainer'
+import ReactLoading from 'react-loading'
 
 const Profile = () => {
   const { setModal } = useContext(ModalContext)
-  const { plansData, fetchPlans, addPlan, editPlan, deletePlan } = usePlans()
+  const { plansData, fetchPlans, addPlan, editPlan, deletePlan, isLoading } = usePlans()
 
   const handleSubmit = async data => {
     try {
@@ -52,51 +53,55 @@ const Profile = () => {
       >
         Add new Plan
       </Button>
-      <GridContainer>
-        {plansData.userPlans?.map(plan => (
-          <Box key={plan._id}>
-            <Contents>
-              <CustomLink to={`/plans/${plan._id}`}>
-                <h2>{plan.name?.toUpperCase()}</h2>
-              </CustomLink>
-              <Info>
-                <span>Type: {plan.type}</span>
-                <span>Day: {plan.day}</span>
-              </Info>
-              <ExerList>
-                {plan.exercises.map((ex, i) => (
-                  <CustomLink isexercise={`${true}`} key={ex._id} to={`/profile/${plan._id}/exercises/${i}`}>
-                    <li>{ex.name}</li>
-                  </CustomLink>
-                ))}
-                <CustomLink to={`/profile/${plan._id}/exercises`}>add exercise</CustomLink>
-              </ExerList>
-            </Contents>
-            <Button
-              onClick={() => {
-                setModal({
-                  isVisible: true,
-                  component: createPortal(
-                    <PlanForm
-                      onClose={setModal}
-                      info={plansData.enums}
-                      onSubmit={handleSubmit}
-                      onDelete={handleDelete}
-                      editData={{
-                        planId: plan._id,
-                        plan: { name: plan.name, type: plan.type, day: plan.day, description: plan.description }
-                      }}
-                    />,
-                    document.getElementById('modals')
-                  )
-                })
-              }}
-            >
-              Edit Plan
-            </Button>
-          </Box>
-        ))}
-      </GridContainer>
+      {isLoading ? (
+        <Loading type='spin' color='#6e2504' height='5%' width='5%' />
+      ) : (
+        <GridContainer>
+          {plansData.userPlans?.map(plan => (
+            <Box key={plan._id}>
+              <Contents>
+                <CustomLink to={`/plans/${plan._id}`}>
+                  <h2>{plan.name?.toUpperCase()}</h2>
+                </CustomLink>
+                <Info>
+                  <span>Type: {plan.type}</span>
+                  <span>Day: {plan.day}</span>
+                </Info>
+                <ExerList>
+                  {plan.exercises.map((ex, i) => (
+                    <CustomLink isexercise={`${true}`} key={ex._id} to={`/profile/${plan._id}/exercises/${i}`}>
+                      <li>{ex.name}</li>
+                    </CustomLink>
+                  ))}
+                  <CustomLink to={`/profile/${plan._id}/exercises`}>add exercise</CustomLink>
+                </ExerList>
+              </Contents>
+              <Button
+                onClick={() => {
+                  setModal({
+                    isVisible: true,
+                    component: createPortal(
+                      <PlanForm
+                        onClose={setModal}
+                        info={plansData.enums}
+                        onSubmit={handleSubmit}
+                        onDelete={handleDelete}
+                        editData={{
+                          planId: plan._id,
+                          plan: { name: plan.name, type: plan.type, day: plan.day, description: plan.description }
+                        }}
+                      />,
+                      document.getElementById('modals')
+                    )
+                  })
+                }}
+              >
+                Edit Plan
+              </Button>
+            </Box>
+          ))}
+        </GridContainer>
+      )}
     </Wrapper>
   )
 }
@@ -147,4 +152,7 @@ const ExerList = styled.div`
     background-color: #d9cdbf;
     margin-bottom: 15px;
   }
+`
+const Loading = styled(ReactLoading)`
+  margin-top: 3em;
 `
